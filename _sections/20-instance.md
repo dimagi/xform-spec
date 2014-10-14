@@ -23,22 +23,22 @@ The primary instance should contain a single childnode. In the example below `<h
 </instance>
 {% endhighlight %}
 
-Any value inside a primary instance is considered a default value for that question. If that node has a corresponding input element that value will be displayed to the user when the question is parsed.
+Any value inside a primary instance is considered a default value for that question. If that node has a corresponding input element that value will be displayed to the user when the question is rendered.
 
 Nodes inside a primary instance can contain attributes. The client application normally retains the attribute when a record is submitted. There are 3 pre-defined instance attributes:
 
 | attribute     | description
 |---------------|------------
-| `id`          | on the childnode of the primary instance: This is the unique ID at which the form is identified the server that publishes the Form and receives data submissions. For more information see [this Form List Specification](https://bitbucket.org/javarosa/javarosa/wiki/FormListAPI). 
+| `id`          | on the childnode of the primary instance: This is the unique ID at which the form is identified by the server that publishes the Form and receives data submissions. For more information see the [CommCare Suite Specification](https://bitbucket.org/commcare/commcare/wiki/Suite20). 
 | `version`     | on the childnode of the primary instance can contain any string value.
 | `jr:template` | on any repeat group node: This serves to define a default template for repeats and is useful if any of the leaf nodes inside a repeat contains a default value. It is not transmitted in the record. For more details, see the [repeats](#repeats) section.
 
 The primary instance also includes a special type of nodes for metadata inside the `<meta>` block. [pending]() - See the [Metadata](#preloaders---metadata) section
 
 
-### Secondary Instances
+### Secondary Instances - Internal
 
-Secondary instances are used to pre-load data inside a form. This data is searchable in XPath. At the moment the only use case is so-called _cascading selections_ where the available options of a multiple-choice question can be filtered based on an earlier answer.
+Secondary instances are used to pre-load read-only data inside a form. This data is searchable in XPath. At the moment the key use case is in designing so-called _cascading selections_ where the available options of a multiple-choice question can be filtered based on an earlier answer.
 
 A secondary instance should get a unique `id` attribute on the `<instance>` node. This allows apps to query the data (which is outside the root, ie. the primary instance, and would normally not be reachable). It uses the the `instance('cities')/root/item[country='nl']` syntax to do this.
 
@@ -108,3 +108,26 @@ A secondary instance should get a unique `id` attribute on the `<instance>` node
     </root>
 </instance>
 {% endhighlight %}
+
+
+### Secondary Instances - External
+
+The previous section discussed secondary instances with static read-only data that is present in the XForm itself. Another type of secondary instances presents read-only data from an _external_ source. The external source can be static or dynamic and is specified using the additional `src` attribute with a URI value on an empty `<instance>` node. Querying an external instance is done in exactly the same way as for an [internal secondary instance](#secondary-instances---internal).
+
+[enketo](# "None of these are supported in Enketo (but some support, close to jr://file instances, is planned for December 2014).")
+
+{% highlight xml %}
+<instance id="towns" src="jr://file/towns.xml"/>
+{% endhighlight %}
+
+The following URI variants are supported across CommCare apps (though not in every app):
+
+| URI format                     | description 
+|--------------------------------------------|----------------
+| `jr://file/FILENAME.xml`                   | points to a local resource similar to how [media](#media) is added to a form. 
+| `jr://instance/dbconnector/table/PATIENTS` | points to an instance of type `dbconnector` and the results of the query: `table = patients`
+| `jr://instance/casedb`                     | points to all locally stored cases (see the [CaseDb Specification](https://bitbucket.org/commcare/commcare/wiki/casedb))
+| `jr://instance/casedb/session/PREGNANCYID` | points to a filtered set of stored cases using a shortcut to the 'session' instance (see the [CaseDb Specification](https://bitbucket.org/commcare/commcare/wiki/casedb))
+| `jr://instance/session`                    | points to the current session variables, aka [metadata](#metadata) (see the [Session Specification](https://bitbucket.org/commcare/commcare/wiki/commcaresession))
+| `jr:instance/fixture/FIXTUREID`            | points to a fixture (see the [Fixture Specification](https://bitbucket.org/commcare/commcare/wiki/fixtures))
+

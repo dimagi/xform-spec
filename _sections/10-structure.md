@@ -13,7 +13,7 @@ The model contains the **[instance](#instance)**(s) and the **[bindings](#bindin
 
 The **[body](#body)** contains the information required to _display_ a form. 
 
-Below is an example of a complete and valid ODK XForm:
+Below is an example of a complete and valid XForm:
 
 {% highlight xml %}
 <?xml version="1.0"?>

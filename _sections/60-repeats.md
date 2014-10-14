@@ -43,7 +43,7 @@ A `<repeat>` uses the nodeset attribute to identify which instance node (and its
 
 ### Creation, Removal of Repeats
 
-The default behaviour of repeats is to let the user create or remove repeats using the the user interface. ODK Collect will ask for the first repeat. Enketo will show the first repeat automatically. This can be disabled by adding the attribute `jr:noAddRemove="true()"` to the `<repeat>` element. 
+The default behaviour of repeats is to let the user create or remove repeats using the the user interface. Collect will ask for the first repeat. Enketo will show the first repeat automatically. This can be disabled by adding the attribute `jr:noAddRemove="true()"` to the `<repeat>` element. 
 
 There are 2 different ways to ensure that multiple repeats are automatically created when a form loads.
 

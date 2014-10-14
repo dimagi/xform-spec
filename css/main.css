@@ -373,7 +373,23 @@ table tr th, table tr td {
     font-size: 12px;
 }
 
-.review {
+.badge-comment {
+    display: none;
+}
+
+.badge.show-comment + .badge-comment {
+    display: inline;
+    border-top: orange 1px solid;
+    border-bottom: orange 1px solid;
+    font-size: 12px;
+    margin: 0 10px;
+}
+
+.show-enketo-comments {
+    padding: 4px;
+}
+
+.review, .enketo {
     background: orange;
 }
 

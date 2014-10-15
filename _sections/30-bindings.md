@@ -101,18 +101,15 @@ A subset of [XPath 1.0 functions](http://www.w3.org/TR/xpath/#corelib), some fun
 | `selected(string list, string value)` 	| Checks if value is equal to an item in a space-separated list (e.g. `select` data type values).
 | `selected-at(string list, int index)` 	| Returns the value of the item at the 1-based index of a space-separated list or empty string if the item does not exist (including for negative index and index 0).
 | `count-selected(string list)` 			| Returns the number of items in a space-separated list (e.g. `select` data type values).
-| `jr:choice-name(string value, node node)` | Returns the label value in the active language corresponding to the choice option with the given value of a select or select1 question question for the given data node. (sorry)
-| `indexed-repeat(nodeset arg, nodeset repeat1, int index1, [nodeset repeatN, int indexN]{0,2})` | Returns a single node from a nodeset by selecting the 0-based index of a repeat nodeset. It does this up to 3 repeat levels deep.
+| `jr:choice-name(string value, node node)` | Returns the label value in the active language corresponding to the choice option with the given value of a select or select1 question question for the given data node. (sorry) [review](# supported in CommCare?)
 | `true()` 									| As in [XPath 1.0](http://www.w3.org/TR/xpath/#section-Boolean-Functions).
 | `false()` 								| As in [XPath 1.0](http://www.w3.org/TR/xpath/#section-Boolean-Functions).
 | `boolean(* arg)` 							| As in [XPath 1.0](http://www.w3.org/TR/xpath/#section-Boolean-Functions).
 | `boolean-from-string(string arg)` 		| Returns true if arg is "true" or "1", otherwise returns false.
 | `not(boolean arg)`						| As in [XPath 1.0](http://www.w3.org/TR/xpath/#function-not).
 | `number(* arg)` 							| As in [XPath 1.0](http://www.w3.org/TR/xpath/#function-number).
-| `decimal-date(date value)` 				| Converts date value to a number.
-| `decimal-date-time(dateTime value)` 		| Converts dateTime value to a number.
-| `decimal-time(time value)` 				| Converts time value to a number.
 | `int(* arg)` 								| Converts to an integer.
+| `double(* arg)` 							| Converts to a floating-point number. [review](# "Should this function be in this spec?")
 | `string(* arg)` 							| As in [XPath 1.0](http://www.w3.org/TR/xpath/#function-string).
 | `format-date(date value, string format)` 	| Returns the date value formatted as defined by the format argument using the following identifiers:<br/>`%Y`: 4-digit year<br/>`%y`: 2-digit year<br/>`%m` 0-padded month<br/>`%n` numeric month<br/>`%b` short text month (Jan, Feb, etc)<br/>`%d` 0-padded day of month<br/>`%e` day of month<br/>`%H` 0-padded hour (24-hr time)<br/>`%h` hour (24-hr time)<br/>`%M` 0-padded minute<br/>`%S` 0-padded second<br/>`%3` 0-padded millisecond ticks<br/>`%a` short text day (Sun, Mon, etc)
 | `date (* value)` 							| Converts to date.

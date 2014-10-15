@@ -387,6 +387,7 @@ table tr th, table tr td {
 
 .show-enketo-comments {
     padding: 4px;
+    margin-bottom: 10px;
 }
 
 .review, .enketo {

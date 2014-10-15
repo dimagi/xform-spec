@@ -55,7 +55,7 @@ The following attributes are supported on body elements. Note that most attribut
 | `jr:count`      | For the `<repeat>` element (see [repeats](#repeats)). This is one of the ways to specify how many repeats should be created by default.
 | `jr:noAddRemove`| For the `<repeat>` element (see [repeats](#repeats)). This indicates whether the user is allowed to add or remove repeats. Can have values `true()` and `false()`
 | `autoplay`      | For all 5 form control elements, this automatically plays a [video or audio 'label'](#media) if the question is displayed on its own page, when the user reaches this page.
-| `accuracyThreshold` | For `<input>` with type `geopoint`, `geotrace`, or `geoshape` this sets the auto-accept threshold in meters for geopoint captures. [review]()
+| `accuracyThreshold` | For `<input>` with type `geopoint` this sets the auto-accept threshold in meters for geopoint captures. [review](# supported in CommCare?)
 | `rows`          | Specifies the minimum number of rows a string `<input>` field gets in Collect. In Enketo a similar effect is achieved by adding appearance="multiline". [pending](https://github.com/enketo/enketo-xslt/issues/26)
 
 ### Appearances

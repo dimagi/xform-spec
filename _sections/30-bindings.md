@@ -16,8 +16,6 @@ A `<bind>` element wires together a primary instance node and the presentation o
 <bind nodeset="/d/s/my_select" type="select" constraint="selected(., 'c') and selected(., 'd'))" jr:constraintMsg="option c and d cannot be selected together" />
 <bind nodeset="/d/s/my_select1" type="select1"/>
 <bind nodeset="/d/geo/my_geopoint" type="geopoint"/>
-<bind nodeset="/d/geo/my_geotrace" type="geotrace"/>
-<bind nodeset="/d/geo/my_geoshape" type="geoshape"/>
 <bind nodeset="/d/media/my_image" type="binary"/>
 <bind nodeset="/d/media/my_audio" type="binary"/>
 <bind nodeset="/d/media/my_video" type="binary"/>
@@ -57,8 +55,6 @@ The following attributes are supported on `<bind>` nodes. Only the nodeset attri
 | `select`   | space-separated list of strings [review]()
 | `select1`  | as string (spaces strongly discouraged) [review]()
 | `geopoint` | space-separated list of valid latitude (decimal degrees), longitude (decimal degrees), altitude (decimal meters) and accuracy (decimal meters)
-| `geotrace` | semi-colon separated list of at least 2 geopoints, where the last geopoint's latitude and longitude is not equal to the first
-| `geoshape` | semi-colon separated list of at least 3 geopoints, where the last geopoint's latitude and longitude is equal to the first
 | `binary`   | [review]()
 | `barcode`  | as string [review]()
 

@@ -149,6 +149,6 @@ To be discussed. Not complete and not correct.
 | property      | simserial        |      tbc        | SIM serial number of phone. May be blank (e.g. for desktop or tablet or 'not supported').
 | property      | subscriberid	   |      tbc        | IMSI of phone prefixed (with imsi: prefix, e.g. imsi:SD655E212). May be blank (e.g., tablets).
 
-
+[enketo](# "Email, phone number, simserial and subscriberid are not supported in Enketo")
 
 

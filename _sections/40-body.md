@@ -28,7 +28,7 @@ The following form control elements are supported:
 |`<select1>`    | Used to display a single-select list (data type: select1)
 |`<select>`     | Used to display a multiple-select list (data type: select)
 |`<upload>`     | Used for image, audio, and video capture
-|`<trigger>`    | Used to obtain user confirmation (e.g. by displaying a single tickbox or button). Will add value _"OK"_ to corresponding instance node when user confirms. If not confirmed the value remains empty. [review]() 
+|`<trigger>`    | Used to obtain user confirmation (e.g. by displaying a single tickbox or button). Will add value _"OK"_ to corresponding instance node when user confirms. If not confirmed the value remains empty.
 
 Within the user controls the following elements can be used:
 

@@ -379,10 +379,13 @@ table tr th, table tr td {
 
 .badge.show-comment + .badge-comment {
     display: inline;
-    border-top: orange 1px solid;
-    border-bottom: orange 1px solid;
-    font-size: 12px;
-    margin: 0 10px;
+    border-top: orange 2px solid;
+    border-bottom: orange 2px solid;
+    background: rgba(255, 165, 0, 0.14);
+    margin: 0;
+    font-size:14px;
+    font-weight: bold;
+    padding: 2px 0;
 }
 
 .show-enketo-comments {
@@ -392,6 +395,10 @@ table tr th, table tr td {
 
 .review, .enketo {
     background: orange;
+}
+
+.enketo {
+  display: none;
 }
 
 .pending {

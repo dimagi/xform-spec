@@ -126,8 +126,8 @@ The following URI variants are supported across CommCare apps (though not in eve
 |--------------------------------------------|----------------
 | `jr://file/FILENAME.xml`                   | points to a local resource similar to how [media](#media) is added to a form. 
 | `jr://instance/dbconnector/table/PATIENTS` | points to an instance of type `dbconnector` and the results of the query: `table = patients`
-| `jr://instance/casedb`                     | points to all locally stored cases (see the [CaseDb Specification](https://bitbucket.org/commcare/commcare/wiki/casedb))
-| `jr://instance/casedb/session/PREGNANCYID` | points to a filtered set of stored cases using a shortcut to the 'session' instance (see the [CaseDb Specification](https://bitbucket.org/commcare/commcare/wiki/casedb))
-| `jr://instance/session`                    | points to the current session variables, aka [metadata](#metadata) (see the [Session Specification](https://bitbucket.org/commcare/commcare/wiki/commcaresession))
-| `jr:instance/fixture/FIXTUREID`            | points to a fixture (see the [Fixture Specification](https://bitbucket.org/commcare/commcare/wiki/fixtures))
-
+| `jr://instance/casedb`                     | points to all locally stored cases (see the [CaseDb Specification](https://github.com/dimagi/commcare/wiki/casedb))
+| `jr://instance/casedb/session/PREGNANCYID` | points to a filtered set of stored cases using a shortcut to the 'session' instance (see the [CaseDb Specification](https://github.com/dimagi/commcare/wiki/casedb))
+| `jr://instance/session`                    | points to the current session variables, aka [metadata](#metadata) (see the [Session Specification](https://github.com/dimagi/commcare/wiki/commcaresession))
+| `jr:instance/fixture/FIXTUREID`            | points to a fixture (see the [Fixture Specification](https://github.com/dimagi/commcare/wiki/fixtures))
+| `jr:instance/ledgerdb`            | points to a ledget (see the [LedgerDb Specification](https://github.com/dimagi/commcare/wiki/ledgerdb))

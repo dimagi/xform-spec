@@ -4,6 +4,8 @@ title: Bindings
 
 A `<bind>` element wires together a primary instance node and the presentation of the corresponding question to the user. It is used to describe the datatype and various kinds of logic related to the data. A bind can refer to any node in the primary instance including repeated nodes_. It may or may not have a corresponding presentation node in the [body](#body). 
 
+An instance node does not require a corresponding `<bind>` node, regardless of whether it has a presentation node.
+
 {% highlight xml %}
 <bind nodeset="/d/my_intro" type="string" readonly="true()"/>
 <bind nodeset="/d/text_widgets/my_string" type="string"/>

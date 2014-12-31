@@ -1,8 +1,9 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
+    var queryParams = getAllQueryParams();
     addNavMenu();
     addBadges();
     addBadgeListeners();
-    addEnketoListener();
+    addEnketoListener(queryParams['show-enketo-compatibility']);
 });
 
 // adds Navigation Menu up to 2 levels deep
@@ -31,6 +32,7 @@ function getMenuElement(headingEl) {
     var listItemEl = document.createElement('li'),
         linkEl = document.createElement('a');
 
+    headingEl.id = headingEl.id.replace(' ', '-');
     linkEl.setAttribute('href', '#' + headingEl.id);
     linkEl.appendChild(document.createTextNode(headingEl.textContent));
 
@@ -62,7 +64,7 @@ function addBadges() {
     }
 }
 
-// add badges from review and pending links
+// add badge listeners to show/hide badge comments
 function addBadgeListeners() {
     var link, clss,
         links = document.querySelectorAll('.badge');
@@ -71,37 +73,63 @@ function addBadgeListeners() {
         link = links[i];
         link.addEventListener("click", toggleCommentVisibility, false);
     }
-
-    function toggleCommentVisibility(evt) {
-        evt.preventDefault();
-        evt.target.classList.toggle('show-comment');
-    }
 }
 
-function addEnketoListener() {
+// toggle visibility of single badge comment
+function toggleCommentVisibility(evt) {
+    evt.preventDefault();
+    evt.target.classList.toggle('show-comment');
+}
+
+// add listener to show/hide enketo compatibility comments
+function addEnketoListener(showComments) {
     var button, link,
-        buttons = document.querySelectorAll('.show-enketo-comments'),
-        links = document.querySelectorAll('.badge.enketo');
+        buttons = document.querySelectorAll('.show-enketo-comments');
 
     for (var i = 0; i < buttons.length; ++i) {
         button = buttons[i];
-        button.addEventListener("click", toggleEnketoComments, false);
+        button.addEventListener("click", toggleEnketoCommentsVisibility, false);
     }
 
-    function toggleEnketoComments(evt) {
-        var shown = evt.target.classList.contains('data-visible');
+    if (showComments) {
+        buttons[0].dispatchEvent(new MouseEvent('click'));
+    }
+}
 
-        evt.target.classList.toggle('data-visible');
-        evt.target.textContent = (shown) ? 'Show Enketo Compatibility' : 'Hide Enketo Compatibility';
+// toggle visibility of all enketo comments
+function toggleEnketoCommentsVisibility(evt) {
+    var shown = evt.target.classList.contains('data-visible'),
+        links = document.querySelectorAll('.badge.enketo');
 
-        for (var j = 0; j < links.length; ++j) {
-            link = links[j];
-            if (shown) {
-                link.classList.remove('show-comment');
-            } else {
-                link.classList.add('show-comment');
-            }
+    evt.preventDefault();
+    evt.target.classList.toggle('data-visible');
+    evt.target.textContent = (shown) ? 'Show Enketo Compatibility' : 'Hide Enketo Compatibility';
+
+    for (var j = 0; j < links.length; ++j) {
+        link = links[j];
+        if (shown) {
+            link.classList.remove('show-comment');
+        } else {
+            link.classList.add('show-comment');
+        }
+    }
+}
+
+// get all querystring parameters as an object
+function getAllQueryParams() {
+    var val, processedVal,
+        query = window.location.search.substring(1),
+        vars = query.split("&"),
+        params = {};
+
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        if (pair[0].length > 0) {
+            val = decodeURIComponent(pair[1]);
+            processedVal = (val === 'true') ? true : (val === 'false') ? false : val;
+            params[pair[0]] = processedVal;
         }
     }
 
+    return params;
 }

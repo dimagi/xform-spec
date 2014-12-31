@@ -62,4 +62,4 @@ The following attributes are supported on body elements. Note that most attribut
 
 The appearance of the 5 form controls can be changed with the appearance attributes. Appearance values usually relate to a specific [data type](#data-types). See the [XLS Form specification](http://xlsform.org) for a list of appearance attributes are available for each data type. Multiple space-separated appearance values can be added to a form control
 
-TO ADD: 3rd party app launching with an appearance [review]()
+An appearance attribute can also be used to indicate that an [external app](#external-applications) should be used as a form control.

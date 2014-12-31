@@ -55,4 +55,8 @@ Below is an example of a complete and valid XForm:
 </h:html>
 {% endhighlight %}
 
-Outside of this structure (inside `<h:head>`) there is a way to define [linkages with external (mobile) applications](#external applications). 
+Outside of this simplified structure there are ways to define: 
+
+* [linkages with external (mobile) applications](#external-applications), 
+* [actions](#actions) and 
+* [language dictionaries](#languages). 

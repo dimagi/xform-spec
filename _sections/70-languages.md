@@ -63,4 +63,14 @@ Even within a single language, it is helpful to have multiple 'forms' of the sam
 </text>
 {% endhighlight %}
 
-The different `forms` are only supported for question captions (`<label>`s inside user controls). The [media](#media) section describes how to add non-text form labels using the same method.
+There are three form attribute options for text strings:
+
+| text type       | form attribute
+|-----------------|----------------|
+| single version  | _no form attr_ |
+| verbose version |  `long`        |
+| short version   |  `short`       |
+
+[enketo](# "form="print" is also supported on hints in Enketo.")
+
+The different `forms` are only supported for question captions (`<label>`s inside user controls). The [media](#media) section describes how to add non-text form labels in a similar manner.

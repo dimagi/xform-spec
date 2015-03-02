@@ -22,10 +22,15 @@ The `<itext>` method described in the [languages](#languages) section can also b
 
 ### Supported Media Types
 
-* "image"
-* "audio"
-* "video"
-* "big-image"
+The following table shows the supported media types, and their corresponding itext `form` attribute values. The value of a media reference is a special URL similar to [external secondary instances] with prefixes or 'connectors' that will inform the client application where to download the resource.
+
+| media type| form attribute | URL prefix
+|-----------|----------------|----------------
+| image     | `image`        | `jr://images`
+| audio     | `audio`        | `jr://audio`
+| video     | `video`        | `jr://video`
+| big-image | `image`        | `jr://images`
+
 
 By default, itext "image" values are not clickable. However, if you also include a "big-image", the image displayed by "image" will be clickable and will display a pannable, zoomable view of the file specified by "big-image". The user interface must provide a way to go back to the form after opening a "big-image". Specifying "big-image" alone has no effect, you must always include "image".
 

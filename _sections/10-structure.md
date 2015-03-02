@@ -57,6 +57,7 @@ Below is an example of a complete and valid XForm:
 
 Outside of this simplified structure there are ways to define: 
 
+* form title as the `<title>` element, a child of the `<head>` element,
 * [linkages with external (mobile) applications](#external-applications), 
 * [actions](#actions) and 
 * [language dictionaries](#languages). 

@@ -35,6 +35,11 @@ Nodes inside a primary instance can contain attributes. The client application n
 
 The primary instance also includes a special type of nodes for metadata inside the `<meta>` block. [pending]() - See the [Metadata](#preloaders---metadata) section
 
+There are 2 separate specs for primary instance nodes that describe _cases_ and _ledgers_:
+
+* [Case XML 2.0](https://github.com/dimagi/commcare/wiki/casexml20)
+* [Ledger XML](https://github.com/dimagi/commcare/wiki/ledgerxml)
+
 
 ### Secondary Instances - Internal
 
@@ -114,7 +119,7 @@ A secondary instance should get a unique `id` attribute on the `<instance>` node
 
 The previous section discussed secondary instances with static read-only data that is present in the XForm itself. Another type of secondary instances presents read-only data from an _external_ source. The external source can be static or dynamic and is specified using the additional `src` attribute with a URI value on an empty `<instance>` node. Querying an external instance is done in exactly the same way as for an [internal secondary instance](#secondary-instances---internal).
 
-[enketo](# "None of these are supported in Enketo (but some support, close to jr://file instances, is planned for December 2014).")
+[enketo](# "In theory working in Enketo Express, but not tested and bugs expected.")
 
 {% highlight xml %}
 <instance id="towns" src="jr://file/towns.xml"/>
@@ -129,5 +134,5 @@ The following URI variants are supported across CommCare apps (though not in eve
 | `jr://instance/casedb`                     | points to all locally stored cases (see the [CaseDb Specification](https://github.com/dimagi/commcare/wiki/casedb))
 | `jr://instance/casedb/session/PREGNANCYID` | points to a filtered set of stored cases using a shortcut to the 'session' instance (see the [CaseDb Specification](https://github.com/dimagi/commcare/wiki/casedb))
 | `jr://instance/session`                    | points to the current session variables, aka [metadata](#metadata) (see the [Session Specification](https://github.com/dimagi/commcare/wiki/commcaresession))
-| `jr:instance/fixture/FIXTUREID`            | points to a fixture (see the [Fixture Specification](https://github.com/dimagi/commcare/wiki/fixtures))
-| `jr:instance/ledgerdb`            | points to a ledget (see the [LedgerDb Specification](https://github.com/dimagi/commcare/wiki/ledgerdb))
+| `jr://instance/fixture/FIXTUREID`            | points to a fixture (see the [Fixture Specification](https://github.com/dimagi/commcare/wiki/fixtures))
+| `jr://instance/ledgerdb`            | points to a ledger (see the [LedgerDb Specification](https://github.com/dimagi/commcare/wiki/ledgerdb))

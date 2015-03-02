@@ -30,7 +30,9 @@ Nodes inside a primary instance can contain attributes. The client application n
 | attribute     | description
 |---------------|------------
 | `id`          | on the childnode of the primary instance: This is the unique ID at which the form is identified by the server that publishes the Form and receives data submissions. For more information see the [CommCare Suite Specification](https://bitbucket.org/commcare/commcare/wiki/Suite20). 
-| `version`     | on the childnode of the primary instance can contain any string value.
+| `version`     | on the childnode of the primary instance: Form version which can contain any string value.
+| `uiVersion`   | on the childnode of the primary instance: UI version the UI the client should use [review]()
+| `name`        | on the childnode of the primary instance: Form name (less-preferred alternative to the `<title>` element)
 | `jr:template` | on any repeat group node: This serves to define a default template for repeats and is useful if any of the leaf nodes inside a repeat contains a default value. It is not transmitted in the record. For more details, see the [repeats](#repeats) section.
 
 The primary instance also includes a special type of nodes for metadata inside the `<meta>` block. [pending]() - See the [Metadata](#preloaders---metadata) section

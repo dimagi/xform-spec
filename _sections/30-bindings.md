@@ -31,7 +31,7 @@ The following attributes are supported on `<bind>` nodes. Only the nodeset attri
 
 | attribute | description |
 | --------- | --------- |
-| `nodeset`   | Specifies the [path](#xpath-paths) to the instance node' \[required\].
+| `nodeset`   | Specifies the [path](#xpath-paths) to the instance node or attribute \[required\].
 | `type`      | Specifies the data type. These are discussed below. Considered string if omitted.
 | `readonly`  | Specifies whether the user is allowed to enter data, options: `true()`, and `false()`. Considered false() if omitted.
 | `required`  | Specifies whether the question requires a non-empty value, options: `true()`, and `false()`. Considered false() if omitted.
@@ -42,6 +42,8 @@ The following attributes are supported on `<bind>` nodes. Only the nodeset attri
 | `jr:constraintMsg` | The message that will be displayed if the specified constraint is violated.
 | `jr:preload`| Preloaders for predefined meta data. See [preloaders](#preloaders---metadata).
 | `jr:preloadParams` | Parameters used by `jr:preload`. See [preloaders](#preloaders---metadata).
+
+[enketo](# "In Enketo nodesets cannot refer to attributes.")
 
 ### Data Types
 

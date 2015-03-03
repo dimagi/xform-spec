@@ -37,4 +37,4 @@ The following event values are supported on `<setvalue>` nodes. [review]()
 |--------------------|-------------|
 | xforms-ready       | Occurs when the forms viewing application has finished the initial set up of all XForms constructs and is ready for user interaction.
 | xforms-revalidate  | Occurs when the viewing application validates all instance data in a particular model.
-| jr-insert          | Occurs when some ....... has been inserted.
+| jr-insert          | Occurs a repeat element has been inserted. [review](# "only the first instance of each repeat?")

@@ -33,14 +33,12 @@ The following attributes are supported on `<bind>` nodes. Only the nodeset attri
 | --------- | --------- |
 | `nodeset`   | Specifies the [path](#xpath-paths) to the instance node or attribute \[required\].
 | `type`      | Specifies the data type. These are discussed below. Considered string if omitted.
-| `readonly`  | Specifies whether the user is allowed to enter data, options: `true()`, and `false()`. Considered false() if omitted.
-| `required`  | Specifies whether the question requires a non-empty value, options: `true()`, and `false()`. Considered false() if omitted.
-| `relevant`  | Specifies whether the question or group is relevant. The question or group will only be presented to the user when the XPath expression evaluates to true. When false the data node (and their descendants) is/are emptied.
-| `constraint`| Specifies acceptable answers for the specified prompt with an XPath expression.
+| `readonly`  | Specifies whether the user is allowed to enter data, options: `true()`, and `false()`. Considered `false()` if omitted. [review](# "not sure if readonly is supported")
+| `required`  | Specifies whether the question requires a non-empty value, options: `true()`, and `false()`. Considered `false()` if omitted.
+| `relevant`  | Specifies whether the question or group is relevant. The question or group will only be presented to the user when the XPath expression evaluates to `true()`. When `false()` the data node (and its descendants) are removed from the primary instance on submission.
+| `constraint`| Specifies acceptable answers for the specified prompt with an XPath expression. Will only be evaluated when the node is non-empty.
 | `calculate` | Calculates a node value with an XPath expression.
 | `jr:constraintMsg` | The message that will be displayed if the specified constraint is violated.
-| `jr:preload`| Preloaders for predefined meta data. See [preloaders](#preloaders---metadata).
-| `jr:preloadParams` | Parameters used by `jr:preload`. See [preloaders](#preloaders---metadata).
 
 [enketo](# "In Enketo nodesets cannot refer to attributes.")
 
@@ -54,12 +52,13 @@ The following attributes are supported on `<bind>` nodes. Only the nodeset attri
 | `decimal`  | As in [XML 1.0](http://www.w3.org/TR/xmlschema-2/#decimal)
 | `date`     | As in [XML 1.0](http://www.w3.org/TR/xmlschema-2/#date)
 | `time` 	 | As in [XML 1.0](http://www.w3.org/TR/xmlschema-2/#time)
-| `dateTime` | As in [XML 1.0](http://www.w3.org/TR/xmlschema-2/#dateTime) [review]()
+| `dateTime` | As in [XML 1.0](http://www.w3.org/TR/xmlschema-2/#dateTime)
 | `select`   | space-separated list of strings [review]()
 | `select1`  | as string (spaces strongly discouraged) [review]()
 | `geopoint` | space-separated list of valid latitude (decimal degrees), longitude (decimal degrees), altitude (decimal meters) and accuracy (decimal meters)
 | `binary`   | [review]()
 | `barcode`  | as string [review]()
+| `intent`   | used for [external applications](#declaring-external-application)
 
 ### XPath Paths
 
@@ -94,13 +93,14 @@ Only the _parent_ and _child_ axes are supported of the [XPath 1.0 axes](https:/
 
 A subset of [XPath 1.0 functions](http://www.w3.org/TR/xpath/#corelib), some functions of later versions of XPath, and a number of additional custom functions are supported. Some of the XPath 1.0 functions have been extended with additional functionality. 
 
-| function | description |
-|---------|------|
+| function                                  | description |
+|-------------------------------------------|------|
 | `concat(* arg*)` 							| Deviates from [XPath 1.0](http://www.w3.org/TR/xpath/#function-concat) in that it may contain _1 argument_ and that all arguments can be _nodesets_ or strings. It concatenates all string values and _all node values_ inside the provided nodesets.
 | `selected(string list, string value)` 	| Checks if value is equal to an item in a space-separated list (e.g. `select` data type values).
 | `selected-at(string list, int index)` 	| Returns the value of the item at the 1-based index of a space-separated list or empty string if the item does not exist (including for negative index and index 0).
 | `count-selected(string list)` 			| Returns the number of items in a space-separated list (e.g. `select` data type values).
 | `jr:choice-name(string value, node node)` | Returns the label value in the active language corresponding to the choice option with the given value of a select or select1 question question for the given data node. (sorry) [review](# "supported in CommCare?")
+| `jr:itext(string arg)`                    | Obtains an itext value for the provided reference in the active language.
 | `true()` 									| As in [XPath 1.0](http://www.w3.org/TR/xpath/#section-Boolean-Functions).
 | `false()` 								| As in [XPath 1.0](http://www.w3.org/TR/xpath/#section-Boolean-Functions).
 | `boolean(* arg)` 							| As in [XPath 1.0](http://www.w3.org/TR/xpath/#section-Boolean-Functions).
@@ -123,6 +123,17 @@ A subset of [XPath 1.0 functions](http://www.w3.org/TR/xpath/#corelib), some fun
 | `min(nodeset arg*)`						| As in [XPath 2.0](http://www.w3.org/TR/xpath-functions/#func-min). [pending](https://code.google.com/p/opendatakit/issues/detail?id=1044)
 | `round(number arg, number decimals?)`		| Deviates from [XPath 1.0](http://www.w3.org/TR/xpath/#function-round) in that a second argument may be provided to specify the number of decimals. [pending](https://code.google.com/p/opendatakit/issues/detail?id=1045)
 | `pow(number value, number power)`			| As in [XPath 3.0](http://www.w3.org/TR/xpath-functions-30/#func-math-pow).
+| `abs(number arg)`                         | As in [XPath 3.0]() [enketo](# "not supported in Enketo") 
+| `ceiling(number arg)`                     | As in [XPath 1.0](http://www.w3.org/TR/xpath/#function-ceiling) 
+| `floor(number arg)`                       | As in [XPath 1.0](http://www.w3.org/TR/xpath/#function-floor)
+| `log(number arg)`                         | As in [XPath 3.0](http://www.w3.org/TR/xpath-functions-30/#func-math-log) [enketo](# "not supported in Enketo")
+| `log10(number arg)`                       | As in [XPath 3.0](http://www.w3.org/TR/xpath-functions-30/#func-math-log10) [enketo](# "not supported in Enketo")
+| `upper-case(string arg)`                  | As in [XPath 3.0](http://www.w3.org/TR/xpath-functions-30/#func-upper-case) [enketo](# "not supported in Enketo")
+| `contains(string arg)`                    | As in [XPath 1.0](http://www.w3.org/TR/xpath/#function-contains)
+| `starts-with(string subj, string search)` | As in [Xpath 1.0](http://www.w3.org/TR/xpath/#function-starts-with)
+| `ends-width(string subj, string search)`  | As in [XPath 3.0](http://www.w3.org/TR/xpath-functions-30/#func-ends-with) [enketo](# "not supported in Enketo") 
+| `translate(string a, string b, string c)` | As in [Xpath 1.0](http://www.w3.org/TR/xpath/#function-translate)
+| `replace(string input, string pattern, string replacement)`| As in [XPath 3.0](http://www.w3.org/TR/xpath-functions-30/#func-replace) [enketo](# "not supported in Enketo")
 | `today()`									| Returns today's datetime as a string [review]()
 | `now()`									| same as today() [review]()
 | `random()`								| Returns a random number between 0.0 (inclusive) and 1.0 (exclusive)
@@ -131,26 +142,9 @@ A subset of [XPath 1.0 functions](http://www.w3.org/TR/xpath/#corelib), some fun
 | `checklist(number min, number max, string v*)`				    | Check wether the count of answers that evaluate to true (when it converts to a number > 0) is between the minimum and maximum inclusive. Min and max can be -1 to indicate _not applicable_.
 | `weighted-checklist(number min, number max, [string v, string w]*)`	| Like checklist(), but the number of arguments has to be even. Each v argument is paired with a w argument that _weights_ each v (true) count. The min and max refer to the weighted totals.
 | `position(node arg?)`						| Deviates from [XPath 1.0](http://www.w3.org/TR/xpath/#function-position) in that it accepts an argument. This argument has to be a single node. If an argument is provided the function returns the position of that node amongst its siblings (with the same node name). [review](# "Unclear to me if CommCare implementation is like this - ODK code difference")
-| `instance(string id)`						| Returns a [secondary instance](#secondary-instances) node with the provided id, e.g. `instance('cities')/item/[country=/data/country]`. It is the only way to refer to a node outside of the primary instance. Note that it doesn't switch the XML Document (the primary instance) or document root for other expressions. E.g. `/data/country` still refers to the primary instance.
-| `current()`								| In the same league as `instance(ID)` but always referring to the primary instance (and accepting no arguments). Unlike instance(ID), which always requires an absolute path, current() can be used with relative references (e.g. `current()/.` and `current()/..`).	
-
-| `string-length(string arg)`               | Deviates from [XPath 1.0](http://www.w3.org/TR/xpath/#function-string-length) in that the argument is _required_.
-| `count(nodeset arg)`                      | As in [XPath 1.0](http://www.w3.org/TR/xpath/#function-count).
-| `sum(nodeset arg)`                        | As in [XPath 1.0](http://www.w3.org/TR/xpath/#function-sum).
-| `max(nodeset arg*)`                       | As in [XPath 2.0](http://www.w3.org/TR/xpath-functions/#func-max). [pending](https://code.google.com/p/opendatakit/issues/detail?id=1044)
-| `min(nodeset arg*)`                       | As in [XPath 2.0](http://www.w3.org/TR/xpath-functions/#func-min). [pending](https://code.google.com/p/opendatakit/issues/detail?id=1044)
-| `round(number arg, number decimals?)`     | Deviates from [XPath 1.0](http://www.w3.org/TR/xpath/#function-round) in that a second argument may be provided to specify the number of decimals. [pending](https://code.google.com/p/opendatakit/issues/detail?id=1045)
-| `pow(number value, number power)`         | As in [XPath 3.0](http://www.w3.org/TR/xpath-functions-30/#func-math-pow).
-| `today()`                                 | Returns today's datetime as a string [review]()
-| `now()`                                   | same as today() [review]()
-| `random()`                                | Returns a random number between 0.0 (inclusive) and 1.0 (exclusive)
-| `depend(* arg*)`                          | Returns first argument [review](# "Should this function be in this spec?")
-| `uuid()`                                  | Return a random [RFC 4122 version 4](http://tools.ietf.org/html/rfc4122) compliant UUID string [review]()
-| `checklist(number min, number max, string v*)`                    | Check wether the count of answers that evaluate to true (when it converts to a number > 0) is between the minimum and maximum inclusive. Min and max can be -1 to indicate _not applicable_.
-| `weighted-checklist(number min, number max, [string v, string w]*)`   | Like checklist(), but the number of arguments has to be even. Each v argument is paired with a w argument that _weights_ each v (true) count. The min and max refer to the weighted totals.
-| `position(node arg?)`                     | Deviates from [XPath 1.0](http://www.w3.org/TR/xpath/#function-position) in that it accepts an argument. This argument has to be a single node. If an argument is provided the function returns the position of that node amongst its siblings (with the same node name). [review](# "Unclear to me if CommCare implementation is like this - ODK code difference")
 | `instance(string id)`                     | Returns a [secondary instance](#secondary-instances) node with the provided id, e.g. `instance('cities')/item/[country=/data/country]`. It is the only way to refer to a node outside of the primary instance. Note that it doesn't switch the XML Document (the primary instance) or document root for other expressions. E.g. `/data/country` still refers to the primary instance.
 | `current()`                               | In the same league as `instance(ID)` but always referring to the primary instance (and accepting no arguments). Unlike instance(ID), which always requires an absolute path, current() can be used with relative references (e.g. `current()/.` and `current()/..`).  
+
 
 ### Metadata
 

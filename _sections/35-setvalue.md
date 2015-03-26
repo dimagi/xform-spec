@@ -18,6 +18,14 @@ The XForm can specify an action that should be taken in response to a particular
 <setvalue event="xforms-ready" ref="/data/meta/appVersion" value="instance('commcaresession')/session/context/appversion"/>
 {% endhighlight %}
 
+An alternative syntax for raw data values:
+{% highlight xml %}
+<bind nodeset="/data/meta/example" type="xsd:string"/>
+<setvalue event="xforms-ready" ref="/data/meta/example"/>
+    some data
+</setvalue>
+{% endhighlight %}
+
 ### Setvalue Attributes
 
 The following attributes are supported on `<setvalue>` nodes. [review]()
@@ -36,5 +44,5 @@ The following event values are supported on `<setvalue>` nodes. [review]()
 | event              | description |
 |--------------------|-------------|
 | xforms-ready       | Occurs when the forms viewing application has finished the initial set up of all XForms constructs and is ready for user interaction.
-| xforms-revalidate  | Occurs when the viewing application validates all instance data in a particular model.
-| jr-insert          | Occurs a repeat element has been inserted. [review](# "only the first instance of each repeat?")
+| xforms-revalidate  | Occurs when the viewing application validates all instance data in a particular model. This is the last event to occur before submitting (or saving a final record) and could be considered a 'record-complete' event.
+| jr-insert          | Occurs when a repeat element creates a new element. The evaluation context is that of the **new** element for that repeat.

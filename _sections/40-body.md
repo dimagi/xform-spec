@@ -28,20 +28,44 @@ The following form control elements are supported:
 |`<select1>`    | Used to display a single-select list (data type: select1)
 |`<select>`     | Used to display a multiple-select list (data type: select)
 |`<upload>`     | Used for image, audio, and video capture
-|`<trigger>`    | Used to obtain user confirmation (e.g. by displaying a single tickbox or button). Will add value _"OK"_ to corresponding instance node when user confirms. If not confirmed the value remains empty.
+|`<trigger>`    | Used to obtain user confirmation (e.g. by displaying a single tickbox or button). Will add value _"OK"_ to corresponding instance node when user confirms. If not confirmed the value remains empty. Behaviour can be modified to do nothing if `appearance="minimal"` (see [appearances](#appearances)) is used. [review](# "Is this right? Does it display the trigger as a note?")
 
-Within the user controls the following elements can be used:
+The following user interface elements are supported:
+
+| element       | description
+|---------------|---------------------------------------
+| `<group>`     | Child of `<body>`, another `<group>`, or a `<repeat>` that groups form controls together. See [groups](#groups) section for further details.
+| `<repeat>`    | Child of `<body>` or `<group>` that can be repeated. See [repeats](#repeats) for further details.
+
+Within the form controls the following elements can be used:
 
 | element       | description
 |---------------|------------------
-| `<group>`     | Child of `<body>`, another `<group>`, or a `<repeat>` that groups form controls together. See [groups](#groups) section for further details.
-| `<repeat>`    | Child of `<body>` or `<group>` that can be repeated. See [repeats](#repeats) for further details.
 | `<label>`     | Child of a [form control](#body-elements) element, `<item>`, `<itemset>` or `<group>` used to display a label. Only 1 `<label>` per form control is properly supported but can be used in [multiple languages](#languages)).
 | `<hint>`      | Child of a [form control](#body-elements) element used to display a hint. Only 1 `<hint>` element per form control is properly supported but can be used in [multiple languages](#languages)).
-| `<output>`    | Child of a `<label>` or `<hint>` element used to display an instance value.
+| `<help>`      | Similar to `<hint>` to display a help message. [review](# "Is there a display difference between hint and help?") [enketo](# "Help element not supported in Enketo.")
+| `<output>`    | Child of a `<label>`, `<hint>` or `<help>` element used to display an instance value, inline, as part of the label, hint, or help text. 
 | `<item>`      | Child of `<select>` or `<select1>` that defines an choice option.
 | `<itemset>`   | Child of `<select>` or `<select1>` that defines a list of choice options to be obtained elsewhere (from a [secondary instance](#secondary-instances)).
 | `<value>`     | Child of `<item>` or `<itemset>` that defines a choice value.
+
+Below is an example of a labels, an output, a hint, an itemset and value used together to define a form control:
+
+{% highlight xml %}
+ <group ref="/data/loc">
+    <label>Location</label>
+    ...
+    <select1 ref="/data/loc/city">
+        <label>City</label>
+        <hint>Cities in <output value="/data/loc/country"/></hint>
+        <itemset nodeset="instance('cities')/root/item[country= /data/loc/country ]">
+            <value ref="name"/>
+            <label ref="label"/>
+        </itemset>
+    </select1>
+</group>
+{% endhighlight %}
+
 
 ### Body Attributes
 
@@ -50,16 +74,21 @@ The following attributes are supported on body elements. Note that most attribut
 | attribute     | description
 |---------------|----------------
 | `ref` / `nodeset` | To link a body element with its corresponding data node and binding, both `nodeset` and `ref` attributes can be used. The convention that is helpful is the one used in XLSForms: use `nodeset="/some/path"` for `<repeat>` and `<itemset>` elements and use `ref="/some/path"` for everything else. The `ref` attribute can also refer to an itext reference (see [languages](#languages))
-| `class`         | Equivalent to class in HTML and allows a list of space-separate css classes as value. This attribute is only supported on the `<h:body>` element for form-wide style classes.
 | `appearance`    | For all form control elements and groups to change their appearance. See [appearances](#appearances)
 | `jr:count`      | For the `<repeat>` element (see [repeats](#repeats)). This is one of the ways to specify how many repeats should be created by default.
 | `jr:noAddRemove`| For the `<repeat>` element (see [repeats](#repeats)). This indicates whether the user is allowed to add or remove repeats. Can have values `true()` and `false()`
-| `autoplay`      | For all 5 form control elements, this automatically plays a [video or audio 'label'](#media) if the question is displayed on its own page, when the user reaches this page. [enketo](# "'autoplay' is not supported in Enketo")
-| `accuracyThreshold` | For `<input>` with type `geopoint` this sets the auto-accept threshold in meters for geopoint captures. [review](# "supported in CommCare?")
-| `rows`          | Specifies the minimum number of rows a string `<input>` field gets in Collect. In Enketo a similar effect is achieved by adding appearance="multiline". [enketo](# "'rows' is not yet supported in Enketo")
+| `value`         | For the `<output>` element to reference the node value to be displayed.
+
+[review](# "Verify whether autoplay, accuracyThreshold and rows are really not supported in CommCare")
 
 ### Appearances
 
-The appearance of the 5 form controls can be changed with the appearance attributes. Appearance values usually relate to a specific [data type](#data-types). See the [XLS Form specification](http://xlsform.org) for a list of appearance attributes are available for each data type. Multiple space-separated appearance values can be added to a form control
+The appearance of the 5 form controls can be changed with the appearance attributes. Appearance values usually relate to a specific [data type](#data-types). Multiple space-separated appearance values can be added to a form control.
 
 An appearance attribute can also be used to indicate that an [external app](#external-applications) should be used as a form control.
+
+The following appearances are supported:
+
+| appearance | description 
+|------------|--------------
+| minimal    | [review]() [enketo](# "Minimal on triggers is not supported in Enketo.")

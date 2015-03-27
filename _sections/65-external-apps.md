@@ -2,7 +2,7 @@
 title: External Applications
 ---
 
-A form may include links to external applications that can be used to set instance values. This is done by calling out an _intent_ on the filesystem and receiving a [structured response]() from the activity that handles that intent.
+A form may include links to external applications that can be used to set instance values. This is done by calling out an _intent_ on the Operating System and receiving a [structured response]() from the activity that handles that intent. This is described by an `<intent>` element that is a child of the `<head>` element.
 
 [enketo](# 'Enketo does not support the use of external mobile applications. Fails silently.')
 
@@ -19,6 +19,9 @@ The example below shows a form that calls 2 different external apps to obtain va
             ...
         </instance>
     </model>
+    ...
+    <bind nodeset="/data/breath_count" type="intent" />
+    <bind nodeset="/data/smsCallout" type="intent" />
     <odkx:intent
             xmlns:odkx="http://opendatakit.org/xforms"
             id="breath_count" class="org.commcare.respiratory.BREATHCOUNT">
@@ -53,17 +56,16 @@ The `<intent>` element (namespace: "http://opendatakit.org/xforms") can be used 
 |--------------|--------------
 | id           | The id of the intent. Will be referenced by form elements \[required\].
 | class        | The Android action which will be used in the intent \[required\].
-| type         | ?? [review]()
-| button-label | The button label text to show in the form UI [review]()
+| type         | The MIME type of the expected data.
+| button-label | The button label text to show in the form UI
 
-The `<intent>` may contain multiple `<extra>` child elements that specify parameters to be passed to the intent target according to [this bundle format]() [review]()). These elements support the following attributes:
+The `<intent>` may contain multiple `<extra>` child elements that specify parameters to be passed to the intent target according to [this bundle format]() [review](# "link?")). These elements support the following attributes:
 
 | attribute    | description
 |--------------|--------------
 | key          | The string key for an extra value which will be included in the intent bundle \[required\].
 | ref          | An XPath reference to a string value.
-
-key_aes_storage (key name?, attribute on intent?, attribute on extra?): A raw AES symetric key. If any file references are returned from this callout, they should be encrypted by this key. [review]()
+| key_aes_storage | (key name?, attribute on intent?, attribute on extra?): A raw AES symetric key. If any file references are returned from this callout, they should be encrypted by this key. [review]()
 
 ### Using external application
 
@@ -73,6 +75,8 @@ As the code snippet above shows, the external application can be called by using
 
 The value after `intent:` refers to the `id` of an `<intent>` element, in the example's case to an intent with id _breath_count_
 
+The corresponding `<bind>` element has the datatype `intent`.
+
 ### Response
 
-The response format expected from the external application is described [here]().
+The response format expected from the external application is described [here]() [review](# "link?").

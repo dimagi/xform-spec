@@ -109,8 +109,10 @@ function toggleEnketoCommentsVisibility(evt) {
         link = links[j];
         if (shown) {
             link.classList.remove('show-comment');
+            document.location.search = '';
         } else {
             link.classList.add('show-comment');
+            document.location.search = 'show-enketo-compatibility=true';
         }
     }
 }

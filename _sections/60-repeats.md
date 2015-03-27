@@ -6,6 +6,8 @@ Repeats are sections that may be repeated in a form. They could consist of a sin
 
 A `<repeat>` uses the nodeset attribute to identify which instance node (and its children) can be repeated.
 
+A `<repeat>` cannnot have a label child element. To display a label it should be wrapped inside a `<group>` as shown below:
+
 {% highlight xml %}
 ...
 <h:head>
@@ -43,7 +45,9 @@ A `<repeat>` uses the nodeset attribute to identify which instance node (and its
 
 ### Creation, Removal of Repeats
 
-The default behaviour of repeats is to let the user create or remove repeats using the the user interface. Collect will ask for the first repeat. Enketo will show the first repeat automatically. This can be disabled by adding the attribute `jr:noAddRemove="true()"` to the `<repeat>` element. 
+The default behaviour of repeats is to let the user create or remove repeats using the the user interface. Commcare also asks the user whether the first repeat should be created. The user control for creating and removing repeats can be disabled by adding the attribute `jr:noAddRemove="true()"` to the `<repeat>` element. 
+
+[enketo](# "Enketo creates the first repeat automatically")
 
 There are 2 different ways to ensure that multiple repeats are automatically created when a form loads.
 
@@ -95,7 +99,7 @@ B. Using the `jr:count` attribute on the `<repeat>` element. E.g. see below for 
 
 ### Default Values in Repeats
 
-There are two different ways to provide default values to elements inside repeats.
+There are three different ways to provide default values to elements inside repeats.
 
 A. Specify the values inside a repeat group with a `jr:template=""` attribute in the primary instance. Any new repeat that does not yet exist in the primary instance will get these default values. The repeat group with the `jr:template` attribute is **not** part of the record itself. So in the example below is for a form in which only a single repeat was created for John.
 
@@ -141,11 +145,19 @@ B. Specify the values for each repeat instance individually in the primary insta
 ...
 {% endhighlight %}
 
+C. Use the 'jr-insert' event and define a 'setvalue' action for it.
+
+{% highlight xml %}
+<setvalue event="jr-insert" ref="/data/repeat/name" value="'John'"/>
+{% endhighlight %}
+
+See the [actions section](#actions) for more details.
+
 ###  A Big Deviation with XForms
 
 In XForms, relative XPaths should be evaluated _relative to context_, and absolute paths (/data/path/to/repeat) should be evaluated as _absolute paths without considering context_. If there are multiple repeats, the XPath /data/path/to/repeat would either return the first repeat (if e.g. a string value is requested), or all repeats (if a nodeset is requested).
 
-However, in this spec, due to an unfortunate persistent historical error, **absolute paths** /data/path/to/repeat/node **inside repeats are always evaluated as if they are relative to the current nodeset**. In other words, the absolute XPath `/data/path/to/repeat/node` when it is referred to from inside a repeat is evaluated as if it is the relative XPath `../node`.
+However, in this spec, due to an unfortunate persistent historical error, **absolute paths inside repeats are always evaluated as if they are relative to the current nodeset**. In other words, the absolute XPath `/data/path/to/repeat/node` when it is referred to from inside a repeat is evaluated as if it is the relative XPath `../node`.
 
-_In order to rectify this error at some time in the future, it would be very helpful if any form builders around this spec [start generating relative references](https://github.com/SEL-Columbia/pyxform/issues/91) automatically._
+_In order to rectify this error at some time in the future, it would be very helpful if any form builders around this spec start generating relative references automatically._
 

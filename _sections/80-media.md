@@ -22,20 +22,19 @@ The `<itext>` method described in the [languages](#languages) section can also b
 
 ### Supported Media Types
 
-[review](# "Not correct, but not clear what to replace it with.")
 
 The following table shows the supported media types, and their corresponding itext `form` attribute values. The value of a media reference is a special URL similar to [external secondary instances](#secondary-instances---external) with prefixes or 'connectors' that will inform the client application where to download the resource.
 
-| itext `form` attribute on `<value>` element | URL prefix
+media type | itext `form` attribute on `<value>` element 
 ----------------|----------------
-| `image`        | `jr://images`
-| `audio`        | `jr://audio`
-|  `video`        | `jr://video`
-|  `big-image`    | `jr://images`
-
+image           | `image` and `big-image`     
+audio           | `audio` 
+video           | `video`   
 
 By default, itext "image" values are not clickable. However, if you also include a "big-image", the image displayed by "image" will be clickable and will display a pannable, zoomable view of the file specified by "big-image". The user interface must provide a way to go back to the form after opening a "big-image". Specifying "big-image" alone has no effect, you must always include "image".
 
 Files referenced by "image" and "big-image" may be the same; however, for performance reasons, it is recommended to create smaller thumbnail images to be referenced by "image".
 
 [enketo](# "'big-image' is not supported in Enketo.")
+
+See the [URI section](#uri-support) for information about with URI formats are supported to refer to media.

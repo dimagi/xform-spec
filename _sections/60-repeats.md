@@ -47,7 +47,7 @@ A `<repeat>` cannnot have a label child element. To display a label it should be
 
 The default behaviour of repeats is to let the user create or remove repeats using the the user interface. Commcare also asks the user whether the first repeat should be created. The user control for creating and removing repeats can be disabled by adding the attribute `jr:noAddRemove="true()"` to the `<repeat>` element. 
 
-[enketo](# "Enketo creates the first repeat automatically")
+[enketo](# "Enketo creates the first repeat automatically and does not allow its removal.")
 
 There are 2 different ways to ensure that multiple repeats are automatically created when a form loads.
 

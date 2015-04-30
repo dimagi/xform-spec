@@ -28,7 +28,7 @@ The following form control elements are supported:
 |`<select1>`    | Used to display a single-select list (data type: select1)
 |`<select>`     | Used to display a multiple-select list (data type: select)
 |`<upload>`     | Used for image, audio, and video capture
-|`<trigger>`    | Used to obtain user confirmation (e.g. by displaying a single tickbox or button). Will add value _"OK"_ to corresponding instance node when user confirms. If not confirmed the value remains empty. Behaviour can be modified to do nothing if `appearance="minimal"` (see [appearances](#appearances)) is used. [review](# "Is this right? Does it display the trigger as a note?")
+|`<trigger>`    | Used to obtain user confirmation (e.g. by displaying a single tickbox or button). Will add value _"OK"_ to corresponding instance node when user confirms. If not confirmed the value remains empty. Behaviour can be modified to just show the label without a prompt, if `appearance="minimal"` is used (see [appearances](#appearances)). The latter is discouraged as it is much better to use a readonly input for this purpose. [review](# "may have to change this recommendation to using <output>, see comment below under <output>")
 
 The following user interface elements are supported:
 
@@ -43,8 +43,8 @@ Within the form controls the following elements can be used:
 |---------------|------------------
 | `<label>`     | Child of a [form control](#body-elements) element, `<item>`, `<itemset>` or `<group>` used to display a label. Only 1 `<label>` per form control is properly supported but can be used in [multiple languages](#languages)).
 | `<hint>`      | Child of a [form control](#body-elements) element used to display a hint. Only 1 `<hint>` element per form control is properly supported but can be used in [multiple languages](#languages)).
-| `<help>`      | Similar to `<hint>` to display a help message. [review](# "Is there a display difference between hint and help?") [enketo](# "Help element not supported in Enketo.")
-| `<output>`    | Child of a `<label>`, `<hint>` or `<help>` element used to display an instance value, inline, as part of the label, hint, or help text. 
+| `<help>`      | Similar to `<hint>` to display a help message. [enketo](# "Help element not supported in Enketo.")
+| `<output>`    | Child of a `<label>`, `<hint>` or `<help>` element used to display an instance value, inline, as part of the label, hint, or help text. [review](# "Is this correct in CommCare or is it (also) a Form Control just like <input> and <select>?")
 | `<item>`      | Child of `<select>` or `<select1>` that defines an choice option.
 | `<itemset>`   | Child of `<select>` or `<select1>` that defines a list of choice options to be obtained elsewhere (from a [secondary instance](#secondary-instances)).
 | `<value>`     | Child of `<item>` or `<itemset>` that defines a choice value.
@@ -66,7 +66,6 @@ Below is an example of a labels, an output, a hint, an itemset and value used to
 </group>
 {% endhighlight %}
 
-
 ### Body Attributes
 
 The following attributes are supported on body elements. Note that most attributes can only be used on specific elements. If such a specific attribute is used on elements that do not support it, it will usually be silently ignored. 
@@ -78,8 +77,8 @@ The following attributes are supported on body elements. Note that most attribut
 | `jr:count`      | For the `<repeat>` element (see [repeats](#repeats)). This is one of the ways to specify how many repeats should be created by default.
 | `jr:noAddRemove`| For the `<repeat>` element (see [repeats](#repeats)). This indicates whether the user is allowed to add or remove repeats. Can have values `true()` and `false()`
 | `value`         | For the `<output>` element to reference the node value to be displayed.
+| `rows`          | Specifies the minimum number of rows a string `<input>` field gets. [enketo](# "Not supported in Enketo. In Enketo a similar effect is achieved by adding appearance="multiline".")
 
-[review](# "Verify whether autoplay, accuracyThreshold and rows are really not supported in CommCare")
 
 ### Appearances
 
@@ -89,6 +88,8 @@ An appearance attribute can also be used to indicate that an [external app](#ext
 
 The following appearances are supported:
 
-| appearance | description 
-|------------|--------------
-| minimal    | [review]() [enketo](# "Minimal on triggers is not supported in Enketo.")
+| appearance   | description 
+|--------------|--------------
+| `field-list` | On a `<group>` this will show the complete group on one page. [enketo](# "Enketo requires <h:body class="pages"> to conform to this behaviour. The default behaviour is to put all questions on one page.")
+| `minimal`    | On a `<trigger>` this will show just the label, without a user prompt. [enketo](# "Minimal on triggers is not supported in Enketo.")
+| .......      | [review](# "Add others") 

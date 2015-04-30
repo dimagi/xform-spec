@@ -16,7 +16,7 @@ In the `<model>`, a multi-lingual dictionary has the following structure:
 </itext>
 {% endhighlight %}
 
-Additional `<text>` entries are added for each localizable string. The `<translation>` block is duplicated for each supported language. The content should be the same (same set of text ids) but with all strings translated to the new language. The language name in the lang attribute should be the shortest [ISO 639 code](http://www.loc.gov/standards/iso639-2/php/code_list.php). The app should try to convert this to a human-readable language for the UI. A default="" attribute can be added to a `<translation>` to make it the default language, otherwise the first listed is used as the default.
+Additional `<text>` entries are added for each localizable string. The `<translation>` block is duplicated for each supported language. The content should be the same (same set of text ids) but with all strings translated to the new language. It is recommended to use the [ISO 639-1 (or else ISO 629-2 code)](http://www.loc.gov/standards/iso639-2/php/code_list.php) for the lang attribute value. The app should try to convert this to a human-readable language name to show in the UI. A default="" attribute can be added to a `<translation>` to make it the default language, otherwise the first listed is used as the default.
 Every place localized content is used (all `<label>`s and `<hint>`s) must use a converted notation to reference the dictionary:
 
 For example:
@@ -77,6 +77,6 @@ There are three form attribute options for text strings:
 | single version  | _no form attr_ |
 | short version   |  `short`       |
 
-[enketo](# "form="print" is also supported on hints in Enketo.")
+[enketo](# "In Enketo form="print" is also supported on hints. Not relevant but interesting perhaps.")
 
 The different `forms` are only supported for question captions (`<label>`s inside user controls). The [media](#media) section describes how to add non-text form labels in a similar manner.

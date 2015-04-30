@@ -31,7 +31,6 @@ Nodes inside a primary instance can contain attributes. The client application n
 |---------------|------------
 | `xmlns`       | on the childnode of the primary instance: A unique namespace at which the form is identified by the server that publishes the Form and receives data submissions. \[required\] 
 | `orx:version` | on the childnode of the primary instance in the _http://openrosa.org/xforms/_ namespace: Form version which can contain any string value. Like [meta nodes](#metadata) this information is used as a _processing cue_ for the server receiving the submission.
-| `uiVersion`   | on the childnode of the primary instance: UI version the UI the client should use [review](# "namespace?")
 | `name`        | on the childnode of the primary instance: Form name (less-preferred alternative to the `<title>` element)
 | `jr:template` | on any repeat group node in the _http://openrosa.org/javarosa namespace_: This serves to define a default template for repeats and is useful if any of the leaf nodes inside a repeat contains a default value. It is not transmitted in the record and only affects the behavior of the form engine. For more details, see the [repeats](#repeats) section.
 
@@ -42,7 +41,7 @@ There are 2 separate specs for primary instance nodes that describe _cases_ and 
 * [Case XML 2.0](https://github.com/dimagi/commcare/wiki/casexml20)
 * [Ledger XML](https://github.com/dimagi/commcare/wiki/ledgerxml)
 
-[enketo](# "Enketo does not preserve namespaces in the primary instance because it doesn't deal with them well. It strips them instead.")
+[enketo](# "If a non-default namespace is used, Enketo requires all references to the namespaced node to have the correct namespace prefix.")
 
 ### Secondary Instances - Internal
 
@@ -120,7 +119,7 @@ A secondary instance should get a unique `id` attribute on the `<instance>` node
 
 ### Secondary Instances - External
 
-The previous section discussed secondary instances with static read-only data that is present in the XForm itself. Another type of secondary instances presents read-only data from an _external_ source. The external source can be static or dynamic and is specified using the additional `src` attribute with a URI value on an empty `<instance>` node. Querying an external instance is done in exactly the same way as for an [internal secondary instance](#secondary-instances---internal).
+The previous section discussed secondary instances with static read-only data that is present in the XForm document itself. Another type of secondary instances presents read-only data from an _external_ source. The external source can be static or dynamic and is specified using the additional `src` attribute with a URI value on an empty `<instance>` node. Querying an external instance is done in exactly the same way as for an [internal secondary instance](#secondary-instances---internal).
 
 [enketo](# "In theory working in Enketo Express when it knows where to find the resources (in /formList).")
 
@@ -128,17 +127,5 @@ The previous section discussed secondary instances with static read-only data th
 <instance id="commcaresession" src="jr://instance/session"/>
 {% endhighlight %}
 
-The following URI variants are supported across CommCare apps (though not in every app):
-
-| URI format                     | description 
-|--------------------------------------------|----------------
-| `jr://instance/casedb`                     | points to all locally stored cases (see the [CaseDb Specification](https://github.com/dimagi/commcare/wiki/casedb))
-| `jr://instance/session`                    | points to the current session variables, aka [metadata](#metadata) (see the [Session Specification](https://github.com/dimagi/commcare/wiki/commcaresession))
-| `jr://instance/fixture/FIXTUREID`            | points to a fixture (see the [Fixture Specification](https://github.com/dimagi/commcare/wiki/fixtures))
-| `jr://instance/ledgerdb`            | points to a ledger (see the [LedgerDb Specification](https://github.com/dimagi/commcare/wiki/ledgerdb))
-
-Planned for the future: [review]()
-
-|--------------------------------------------|------------
-| `jr://file/FILENAME.xml`                   | points to a local resource similar to how [media](#media) is added to a form. 
+See the [section on URIs](#uri-support) for acceptable URI formats that refer to an external secondary instance.
 

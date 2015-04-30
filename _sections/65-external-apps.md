@@ -2,7 +2,7 @@
 title: External Applications
 ---
 
-A form may include links to external applications that can be used to set instance values. This is done by calling out an _intent_ on the Operating System and receiving a [structured response]() from the activity that handles that intent. This is described by an `<intent>` element that is a child of the `<head>` element.
+A form may include links to external applications that can be used to set instance values. This is done by calling out an _intent_ on the Operating System and receiving a [structured response]() [review](# "missing link") from the activity that handles that intent. This is described by an `<intent>` element that is a child of the `<head>` element.
 
 [enketo](# 'Enketo does not support the use of external mobile applications. Fails silently.')
 
@@ -16,7 +16,11 @@ The example below shows a form that calls 2 different external apps to obtain va
     <h:title>...</h:title>
     <model>
         <instance>
-            ...
+            <data xmlns:jrm="http://dev.commcarehq.org/jr/xforms" xmlns="http://openrosa.org/formdesigner/72AE4C2A-D6C3-4038-B128-C2AA7EFAF014" uiVersion="1" version="603" name="External Callouts">
+                <breath_count/>
+                <smsCallout/>
+                ....
+            </data>
         </instance>
     </model>
     ...

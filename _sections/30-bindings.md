@@ -33,7 +33,7 @@ The following attributes are supported on `<bind>` nodes. Only the nodeset attri
 | --------- | --------- |
 | `nodeset`   | Specifies the [path](#xpath-paths) to the instance node or attribute \[required\].
 | `type`      | Specifies the data type. These are discussed below. Considered string if omitted.
-| `readonly`  | Specifies whether the user is allowed to enter data, options: `true()`, and `false()`. Considered `false()` if omitted. [review](# "not sure if readonly is supported")
+| `readonly`  | Specifies whether the user is allowed to enter data, using a boolean expression. Considered `false()` if omitted. [enketo](# "Only the static value `true()` will have an effect in Enketo")
 | `required`  | Specifies whether the question requires a non-empty value, options: `true()`, and `false()`. Considered `false()` if omitted.
 | `relevant`  | Specifies whether the question or group is relevant. The question or group will only be presented to the user when the XPath expression evaluates to `true()`. When `false()` the data node (and its descendants) are removed from the primary instance on submission.
 | `constraint`| Specifies acceptable answers for the specified prompt with an XPath expression. Will only be evaluated when the node is non-empty.
@@ -46,18 +46,16 @@ The following attributes are supported on `<bind>` nodes. Only the nodeset attri
 
 | type 	     | description
 |------------|------------
-| `string`   | As in [XML 1.0](http://www.w3.org/TR/xmlschema-2/#string)
-| `int`      | As in [XML 1.0](http://www.w3.org/TR/xmlschema-2/#int)
-| `boolean`  | As in [XML 1.0](http://www.w3.org/TR/xmlschema-2/#boolean)
-| `decimal`  | As in [XML 1.0](http://www.w3.org/TR/xmlschema-2/#decimal)
-| `date`     | As in [XML 1.0](http://www.w3.org/TR/xmlschema-2/#date)
-| `time` 	 | As in [XML 1.0](http://www.w3.org/TR/xmlschema-2/#time)
-| `dateTime` | As in [XML 1.0](http://www.w3.org/TR/xmlschema-2/#dateTime)
-| `select`   | space-separated list of strings [review]()
-| `select1`  | as string (spaces strongly discouraged) [review]()
+| `string`   | As in [XML 1.0](http://www.w3.org/TR/xmlschema-2/#string), optionally in "http://www.w3.org/2001/XMLSchema" namespace
+| `int`      | As in [XML 1.0](http://www.w3.org/TR/xmlschema-2/#int), optionally in "http://www.w3.org/2001/XMLSchema" namespace
+| `boolean`  | As in [XML 1.0](http://www.w3.org/TR/xmlschema-2/#boolean), optionally in "http://www.w3.org/2001/XMLSchema" namespace
+| `decimal`  | As in [XML 1.0](http://www.w3.org/TR/xmlschema-2/#decimal), optionally in "http://www.w3.org/2001/XMLSchema" namespace
+| `date`     | As in [XML 1.0](http://www.w3.org/TR/xmlschema-2/#date), optionally in "http://www.w3.org/2001/XMLSchema" namespace
+| `time` 	 | As in [XML 1.0](http://www.w3.org/TR/xmlschema-2/#time), optionally in "http://www.w3.org/2001/XMLSchema" namespace
+| `dateTime` | As in [XML 1.0](http://www.w3.org/TR/xmlschema-2/#dateTime), optionally in "http://www.w3.org/2001/XMLSchema" namespace
 | `geopoint` | space-separated list of valid latitude (decimal degrees), longitude (decimal degrees), altitude (decimal meters) and accuracy (decimal meters)
-| `binary`   | [review]()
-| `barcode`  | as string [review]()
+| `binary`   | string ID (with binary file attached to submission)
+| `barcode`  | as string
 | `intent`   | used for [external applications](#declaring-external-application)
 
 ### XPath Paths
@@ -87,7 +85,7 @@ Predicates are fully supported but with the limitations described in [XPath Axes
 
 ### XPath Axes
 
-Only the _parent_ and _child_ axes are supported of the [XPath 1.0 axes](https://developer.mozilla.org/en-US/docs/Web/XPath/Axes). [review]()
+Only the _parent_, _child_ and _self_ axes are supported of the [XPath 1.0 axes](https://developer.mozilla.org/en-US/docs/Web/XPath/Axes).
 
 ### XPath Functions
 
@@ -99,8 +97,7 @@ A subset of [XPath 1.0 functions](http://www.w3.org/TR/xpath/#corelib), some fun
 | `selected(string list, string value)` 	| Checks if value is equal to an item in a space-separated list (e.g. `select` data type values).
 | `selected-at(string list, int index)` 	| Returns the value of the item at the 1-based index of a space-separated list or empty string if the item does not exist (including for negative index and index 0).
 | `count-selected(string list)` 			| Returns the number of items in a space-separated list (e.g. `select` data type values).
-| `jr:choice-name(string value, node node)` | Returns the label value in the active language corresponding to the choice option with the given value of a select or select1 question question for the given data node. (sorry) [review](# "supported in CommCare?")
-| `jr:itext(string arg)`                    | Obtains an itext value for the provided reference in the active language.
+| `jr:itext(string arg)`                    | Obtains an itext value for the provided reference in the active language. [enketo](# "In Enketo this is not implemented as an XPath function. It is used only for initial form transformation. In practice, that may not make much of a difference.")
 | `true()` 									| As in [XPath 1.0](http://www.w3.org/TR/xpath/#section-Boolean-Functions).
 | `false()` 								| As in [XPath 1.0](http://www.w3.org/TR/xpath/#section-Boolean-Functions).
 | `boolean(* arg)` 							| As in [XPath 1.0](http://www.w3.org/TR/xpath/#section-Boolean-Functions).
@@ -108,7 +105,7 @@ A subset of [XPath 1.0 functions](http://www.w3.org/TR/xpath/#corelib), some fun
 | `not(boolean arg)`						| As in [XPath 1.0](http://www.w3.org/TR/xpath/#function-not).
 | `number(* arg)` 							| As in [XPath 1.0](http://www.w3.org/TR/xpath/#function-number).
 | `int(* arg)` 								| Converts to an integer.
-| `double(* arg)` 							| Converts to a floating-point number. [review](# "Should this function be in this spec?")
+| `double(* arg)` 							| Converts to a floating-point number.
 | `string(* arg)` 							| As in [XPath 1.0](http://www.w3.org/TR/xpath/#function-string).
 | `format-date(date value, string format)` 	| Returns the date value formatted as defined by the format argument using the following identifiers:<br/>`%Y`: 4-digit year<br/>`%y`: 2-digit year<br/>`%m` 0-padded month<br/>`%n` numeric month<br/>`%b` short text month (Jan, Feb, etc)<br/>`%d` 0-padded day of month<br/>`%e` day of month<br/>`%H` 0-padded hour (24-hr time)<br/>`%h` hour (24-hr time)<br/>`%M` 0-padded minute<br/>`%S` 0-padded second<br/>`%3` 0-padded millisecond ticks<br/>`%a` short text day (Sun, Mon, etc)
 | `date (* value)` 							| Converts to date.
@@ -119,9 +116,9 @@ A subset of [XPath 1.0 functions](http://www.w3.org/TR/xpath/#corelib), some fun
 | `string-length(string arg)`				| Deviates from [XPath 1.0](http://www.w3.org/TR/xpath/#function-string-length) in that the argument is _required_.
 | `count(nodeset arg)`						| As in [XPath 1.0](http://www.w3.org/TR/xpath/#function-count).
 | `sum(nodeset arg)`						| As in [XPath 1.0](http://www.w3.org/TR/xpath/#function-sum).
-| `max(nodeset arg*)`						| As in [XPath 2.0](http://www.w3.org/TR/xpath-functions/#func-max). [pending](https://code.google.com/p/opendatakit/issues/detail?id=1044)
-| `min(nodeset arg*)`						| As in [XPath 2.0](http://www.w3.org/TR/xpath-functions/#func-min). [pending](https://code.google.com/p/opendatakit/issues/detail?id=1044)
-| `round(number arg, number decimals?)`		| Deviates from [XPath 1.0](http://www.w3.org/TR/xpath/#function-round) in that a second argument may be provided to specify the number of decimals. [pending](https://code.google.com/p/opendatakit/issues/detail?id=1045)
+| `max(nodeset arg*)`						| As in [XPath 2.0](http://www.w3.org/TR/xpath-functions/#func-max). [enketo](# "Enketo allows any argument to be of nodeset type")
+| `min(nodeset arg*)`						| As in [XPath 2.0](http://www.w3.org/TR/xpath-functions/#func-min). [enketo](# "Enketo allows any argument to be of nodeset type")
+| `round(number arg, number decimals?)`		| Deviates from [XPath 1.0](http://www.w3.org/TR/xpath/#function-round) in that a second argument may be provided to specify the number of decimals. [enketo](# "Enketo conforms to XPath 1.0 spec behaviour if only 1 argument is provided.")
 | `pow(number value, number power)`			| As in [XPath 3.0](http://www.w3.org/TR/xpath-functions-30/#func-math-pow).
 | `abs(number arg)`                         | As in [XPath 3.0]() [enketo](# "not supported in Enketo") 
 | `ceiling(number arg)`                     | As in [XPath 1.0](http://www.w3.org/TR/xpath/#function-ceiling) 
@@ -134,25 +131,23 @@ A subset of [XPath 1.0 functions](http://www.w3.org/TR/xpath/#corelib), some fun
 | `ends-width(string subj, string search)`  | As in [XPath 3.0](http://www.w3.org/TR/xpath-functions-30/#func-ends-with) [enketo](# "not supported in Enketo") 
 | `translate(string a, string b, string c)` | As in [Xpath 1.0](http://www.w3.org/TR/xpath/#function-translate)
 | `replace(string input, string pattern, string replacement)`| As in [XPath 3.0](http://www.w3.org/TR/xpath-functions-30/#func-replace) [enketo](# "not supported in Enketo")
-| `today()`									| Returns today's datetime as a string [review]()
-| `now()`									| same as today() [review]()
-| `random()`								| Returns a random number between 0.0 (inclusive) and 1.0 (exclusive)
-| `depend(* arg*)`							| Returns first argument [review](# "Should this function be in this spec?")
-| `uuid()`									| Return a random [RFC 4122 version 4](http://tools.ietf.org/html/rfc4122) compliant UUID string [review]()
+| `today()`									| Returns today's date without a time component.
+| `now()`									| Returns the current datetime in the current time zone.
+| `random()`								| Returns a random number between 0.0 (inclusive) and 1.0 (exclusive).
+| `depend(* arg*)`							| Returns first argument. Shouldn't need to be used.
+| `uuid(number?)`							| Without arguments, it returns a random [RFC 4122 version 4](http://tools.ietf.org/html/rfc4122) compliant UUID. With an argument it returns a random GUID with the provided number of characters.
 | `checklist(number min, number max, string v*)`				    | Check wether the count of answers that evaluate to true (when it converts to a number > 0) is between the minimum and maximum inclusive. Min and max can be -1 to indicate _not applicable_.
 | `weighted-checklist(number min, number max, [string v, string w]*)`	| Like checklist(), but the number of arguments has to be even. Each v argument is paired with a w argument that _weights_ each v (true) count. The min and max refer to the weighted totals.
-| `position(node arg?)`						| Deviates from [XPath 1.0](http://www.w3.org/TR/xpath/#function-position) in that it accepts an argument. This argument has to be a single node. If an argument is provided the function returns the position of that node amongst its siblings (with the same node name). [review](# "Unclear to me if CommCare implementation is like this - ODK code difference")
+| `position()`						        | As in [XPath 1.0](http://www.w3.org/TR/xpath/#function-position).
 | `instance(string id)`                     | Returns a [secondary instance](#secondary-instances) node with the provided id, e.g. `instance('cities')/item/[country=/data/country]`. It is the only way to refer to a node outside of the primary instance. Note that it doesn't switch the XML Document (the primary instance) or document root for other expressions. E.g. `/data/country` still refers to the primary instance.
 | `current()`                               | In the same league as `instance(ID)` but always referring to the primary instance (and accepting no arguments). Unlike instance(ID), which always requires an absolute path, current() can be used with relative references (e.g. `current()/.` and `current()/..`).  
 
 
 ### Metadata
 
-[review]()
-
 This section describes metadata about _the record_ that is created with the form. Metadata about _the form itself_ (id, version, etc) is covered in the [Primary Instance section](#primary-instance).
 
-The namespace of the meta block is either the default XForms namespace or `"https://openrosa.org/jr/xforms"`.
+The namespace of the meta block is either the default XForms namespace or `"https://openrosa.org/xforms/"`.
 
 {% highlight xml %}
 <instance>
@@ -172,22 +167,27 @@ The namespace of the meta block is either the default XForms namespace or `"http
 </instance>
 {% endhighlight %}
 
-Note that if these meta elements have a `<bind>` with a `calculate` property, the value may change at any time, e.g. when loading a draft record for further data entry. Therefore, it is usually better to **not include a `calculate`** and let the client populate metadata automatically with the defaults mentioned in the table below. 
+These meta elements have corresponding `<bind>` elements with a calculation. _Note that calculations may be recalculated, e.g. when a draft record is loaded. This could lead to undesirable results especially in case the result is a random value._ 
 
 [enketo](# "Enketo will vigorously ignore any calculate attribute on meta/instanceID to keep the value stable.")
 
-As with other nodes, `<bind>`s are not required. They are not particularly useful for metadata either.
+Another approach for adding meta data to a record is to use [actions](#actions) and [external instances](#external-instances) (e.g. a session instance).
+
+[enketo](# "Enketo doesn't support actions.")
+
+[enketo](# "Enketo will magically populate known meta nodes, as mentioned below even if they have no bindings.")
+
+The following meta elements are supported:
 
 | element      | description                                       | default datatype | default value             | namespace
 |--------------|---------------------------------------------------|----------------------------------------------------------------------------
-| `instanceID`   | The unique ID of the record [required]          | string           | concatenation of 'uuid:' and uuid() | same as meta block
-| `timeStart`    | A timestamp of when the form entry was started    | datetime         | now()                     | same as meta block
-| `timeEnd`      | A timestamp of when the form entry ended          | datetime         | now()                     | same as meta block
-| `userID`       | The username stored in the client, when available | string           |                             | same as meta block
-| `deviceID`     | Unique identifier of device. Guaranteed not to be blank but could be 'not supported'. Either the cellular IMEI (with imei: prefix, e.g. imei:A0006F5E212), WiFi mac address (with mac: prefix, e.g mac:01:23:45:67:89:ab), Android ID (e.g. android_id:12011110), or another unique device ID for a webbased client (with domain prefix,e .g. enketo.org:SOMEID) | string | depends on client, prefixed | same as meta block
+| `instanceID` | The unique ID of the record [required]            | string           | concatenation of 'uuid:' and uuid() | same as meta block
+| `timeStart`  | A timestamp of when the form entry was started    | datetime         | now()                     | same as meta block
+| `timeEnd`    | A timestamp of when the form entry ended          | datetime         | now()                     | same as meta block
+| `userID`     | The username stored in the client, when available | string           |                             | same as meta block
+| `deviceID`   | Unique identifier of device. Guaranteed not to be blank but could be 'not supported'. Either the cellular IMEI (with imei: prefix, e.g. imei:A0006F5E212), WiFi mac address (with mac: prefix, e.g mac:01:23:45:67:89:ab), Android ID (e.g. android_id:12011110), or another unique device ID for a webbased client (with domain prefix,e .g. enketo.org:SOMEID) | string | depends on client, prefixed | same as meta block
 | `deprecatedID` | The `<instanceID/>` of the submission for which this is a revision. This revision will have been given a newly generated `<instanceID/>` and this field is populated by the prior value. Server software can use this field to unify multiple revisions to a submission into a consolidated submission record. | string | concatenation of 'uuid:' and uuid() | same as meta block
 
-Another approach for adding meta data to a record is to use [actions](#actions) and [external instances](#external-instances) (e.g. a session instance)
 
 
 

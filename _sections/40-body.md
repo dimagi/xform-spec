@@ -28,7 +28,7 @@ The following form control elements are supported:
 |`<select1>`    | Used to display a single-select list (data type: select1)
 |`<select>`     | Used to display a multiple-select list (data type: select)
 |`<upload>`     | Used for image, audio, and video capture
-|`<trigger>`    | Used to obtain user confirmation (e.g. by displaying a single tickbox or button). Will add value _"OK"_ to corresponding instance node when user confirms. If not confirmed the value remains empty. Behaviour can be modified to just show the label without a prompt, if `appearance="minimal"` is used (see [appearances](#appearances)). The latter is discouraged as it is much better to use a readonly input for this purpose. [review](# "may have to change this recommendation to using <output>, see comment below under <output>")
+|`<trigger>`    | Used to obtain user confirmation (e.g. by displaying a single tickbox or button). Will add value _"OK"_ to corresponding instance node when user confirms. If not confirmed the value remains empty. Behaviour can be modified to just show the label without a prompt, if `appearance="minimal"` is used (see [appearances](#appearances)). The latter is discouraged as it is much better to use a readonly input for this purpose.
 
 The following user interface elements are supported:
 

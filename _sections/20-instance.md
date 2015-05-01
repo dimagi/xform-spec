@@ -41,7 +41,7 @@ There are 2 separate specs for primary instance nodes that describe _cases_ and 
 * [Case XML 2.0](https://github.com/dimagi/commcare/wiki/casexml20)
 * [Ledger XML](https://github.com/dimagi/commcare/wiki/ledgerxml)
 
-[enketo](# "If a non-default namespace is used, Enketo requires all references to the namespaced node to have the correct namespace prefix.")
+[enketo](# "If a non-default namespace is used, Enketo requires all references to the namespaced node to have the correct namespace prefix. Enketo's XSL transformation still strips namespaces but the engine supports it.")
 
 ### Secondary Instances - Internal
 

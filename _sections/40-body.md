@@ -82,14 +82,18 @@ The following attributes are supported on body elements. Note that most attribut
 
 ### Appearances
 
-The appearance of the 5 form controls can be changed with the appearance attributes. Appearance values usually relate to a specific [data type](#data-types). Multiple space-separated appearance values can be added to a form control.
+The appearance of the 5 form controls can be changed with appearance attributes. Appearance values usually relate to a specific [data](#data-types) or [question](#body-elements) type. Multiple space-separated appearance values can be added to a form control.
 
 An appearance attribute can also be used to indicate that an [external app](#external-applications) should be used as a form control.
 
 The following appearances are supported:
 
-| appearance   | description 
-|--------------|--------------
-| `field-list` | On a `<group>` this will show the complete group on one page. [enketo](# "Enketo requires <h:body class="pages"> to conform to this behaviour. The default behaviour is to put all questions on one page.")
-| `minimal`    | On a `<trigger>` this will show just the label, without a user prompt. [enketo](# "Minimal on triggers is not supported in Enketo.")
-| .......      | [review](# "Add others") 
+| appearance    | description 
+|---------------|--------------
+| `field-list`  | On a `<group>` this will show the complete group on one page. [enketo](# "Enketo requires <h:body class="pages"> to conform to this behaviour. The default behaviour is to put all questions on one page.")
+| `minimal`     | On a `<select>` and `<select1>` this will display the choice list as a "dropdown". On a `<trigger>` this will show just the label, without a user prompt. [enketo](# "Minimal on triggers is not supported in Enketo.")
+| `label`       | On a `<select>` and `<select1>` this will only show the question labels without the radiobuttons or checkboxes. Together with `field-list` and `list-nolabel` this can be used to display a question table.
+| `list-nolabel`| On a `<select>` and `<select1>` this will only show the radiobuttons or checkboxes without labels. Together with `field-list` and `label` this can be used to display a question table.
+| `compact`     | On a `<select>` and `<select1>` with image labels this will show just the image labels in a grid that can be selected by clicking on them.
+| `quick`       | On a `<select>` and `<select1>` this will automatically advance to the next page when an answer has been selected. [enketo](# "Appearance 'quick' is not supported in Enketo")
+| `intent:####` | See [External Applications](#external-applications)

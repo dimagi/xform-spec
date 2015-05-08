@@ -32,7 +32,7 @@ The following attributes are supported on `<bind>` nodes. Only the nodeset attri
 | attribute | description |
 | --------- | --------- |
 | `nodeset`   | Specifies the [path](#xpath-paths) to the instance node or attribute \[required\].
-| `type`      | Specifies the data type. These are discussed below. Considered string if omitted.
+| `type`      | Specifies the data type. These are discussed below. Considered "string" if omitted or if an unknown type is provided.
 | `readonly`  | Specifies whether the user is allowed to enter data, using a boolean expression. Considered `false()` if omitted. [enketo](# "Only the static value `true()` will have an effect in Enketo")
 | `required`  | Specifies whether the question requires a non-empty value, options: `true()`, and `false()`. Considered `false()` if omitted.
 | `relevant`  | Specifies whether the question or group is relevant. The question or group will only be presented to the user when the XPath expression evaluates to `true()`. When `false()` the data node (and its descendants) are removed from the primary instance on submission.
@@ -53,10 +53,10 @@ The following attributes are supported on `<bind>` nodes. Only the nodeset attri
 | `date`     | As in [XML 1.0](http://www.w3.org/TR/xmlschema-2/#date), optionally in "http://www.w3.org/2001/XMLSchema" namespace
 | `time` 	 | As in [XML 1.0](http://www.w3.org/TR/xmlschema-2/#time), optionally in "http://www.w3.org/2001/XMLSchema" namespace
 | `dateTime` | As in [XML 1.0](http://www.w3.org/TR/xmlschema-2/#dateTime), optionally in "http://www.w3.org/2001/XMLSchema" namespace
-| `geopoint` | space-separated list of valid latitude (decimal degrees), longitude (decimal degrees), altitude (decimal meters) and accuracy (decimal meters)
-| `binary`   | string ID (with binary file attached to submission)
-| `barcode`  | as string
-| `intent`   | used for [external applications](#declaring-external-application)
+| `geopoint` | Space-separated list of valid latitude (decimal degrees), longitude (decimal degrees), altitude (decimal meters) and accuracy (decimal meters)
+| `binary`   | String ID (with binary file attached to submission)
+| `barcode`  | As string
+| `intent`   | As string, used for [external applications](#declaring-external-application)
 
 ### XPath Paths
 

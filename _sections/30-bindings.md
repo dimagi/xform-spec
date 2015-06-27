@@ -75,9 +75,9 @@ The following are examples of valid paths:
 * `//node`
 
 
-### XPath Expressions
+### XPath Operators
 
-All [XPath 1.0 expressions](http://www.w3.org/TR/xpath/#section-Expressions) are supported, i.e. `|`, `or`, `and`, `=`, `!=`, `<=`, `<`, `>=`, `>`.
+All [XPath 1.0 operators](http://www.w3.org/TR/xpath/#exprlex) are supported, i.e. `|`, `and`, `or`, `mod`, `div`, `=`, `!=`, `<=`, `<`, `>=`, `>`.
 
 ### XPath Predicates
 
